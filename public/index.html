@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Tracker - v1</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />  
+  <link rel="stylesheet" type="text/css" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="./css/keen-dashboards.css" />
+
+  <style type="text/css">
+    @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900|Oswald);
+    body {
+      padding: 50px 0;
+    }
+
+    .status {
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .status .panel-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 72px;
+      font-weight: bold;
+      /* color: #fff; */
+      line-height: 45px;
+      padding-top: 20px;
+      letter-spacing: -0.8px;
+    }
+
+    .timeline {
+      position: relative;
+      padding: 21px 0px 10px;
+      margin-top: 4px;
+      margin-bottom: 30px;
+    }
+
+    .timeline .line {
+      position: absolute;
+      width: 4px;
+      display: block;
+      background: currentColor;
+      top: 0px;
+      bottom: 0px;
+      margin-left: 30px;
+    }
+
+    .timeline .separator {
+      border-top: 1px solid currentColor;
+      padding: 5px;
+      padding-left: 40px;
+      font-style: italic;
+      font-size: .9em;
+      margin-left: 30px;
+    }
+
+    .timeline .line::before {
+      top: -4px;
+    }
+
+    .timeline .line::after {
+      bottom: -4px;
+    }
+
+    .timeline .line::before,
+    .timeline .line::after {
+      content: '';
+      position: absolute;
+      left: -4px;
+      width: 12px;
+      height: 12px;
+      display: block;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .timeline .panel {
+      position: relative;
+      margin: 10px 0px 21px 70px;
+      clear: both;
+    }
+
+    .timeline .panel::before {
+      position: absolute;
+      display: block;
+      top: 8px;
+      left: -24px;
+      content: '';
+      width: 0px;
+      height: 0px;
+      border: inherit;
+      border-width: 12px;
+      border-top-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+
+    .timeline .panel .panel-heading.icon * {
+      font-size: 20px;
+      vertical-align: middle;
+      line-height: 40px;
+    }
+
+    .timeline .panel .panel-heading.icon {
+      position: absolute;
+      left: -59px;
+      display: block;
+      width: 40px;
+      height: 40px;
+      padding: 0px;
+      border-radius: 50%;
+      text-align: center;
+      float: left;
+    }
+
+    .timeline .panel-outline {
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .timeline .panel-outline .panel-body {
+      padding: 10px 0px;
+    }
+
+    .timeline .panel-outline .panel-heading:not(.icon),
+    .timeline .panel-outline .panel-footer {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="navbar-brand">JDE Tracker v1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <button>Add to timeline</button>
+    <div class="row">
+
+      <div class="col-sm-12">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Tracker.
+          </div>
+          <div class="chart-stage">
+            <div class="timeline">
+
+              <!-- Line component -->
+              <div class="line text-muted"></div>
+
+              <!-- Panel -->
+              <article class="panel panel-success panel-primary">
+
+                <!-- Icon -->
+                <div class="panel-heading icon">
+                  <i class="glyphicon glyphicon-plus"></i>
+                </div>
+                <!-- /Icon -->
+
+                <div class="panel-heading">
+                  <h2 class="panel-title"><strong>Jan</strong> uploaded invoice at 21 Jun 2017 12:51:00 .</h2>
+                </div>
+
+                <!-- Body -->
+                <div class="panel-body">
+                  <strong>123-089-asas-12121</strong> UUID generated.
+                </div>
+                <!-- /Body -->
+
+              </article>
+              <!-- /Panel -->
+
+              <!-- Panel -->
+              <article class="panel panel-success panel-primary">
+
+                <!-- Icon -->
+                <div class="panel-heading icon">
+                  <i class="glyphicon glyphicon-cog"></i>
+                </div>
+                <!-- /Icon -->
+
+                <div class="panel-heading">
+                  <h2 class="panel-title"><strong>Richard</strong> processed invoice at 21 Jun 2017 13:30:00 .</h2>
+                </div>
+
+                <!-- Body -->
+                <div class="panel-body">
+                  <strong>23698 / PV / 00001</strong> voucher generated.
+                </div>
+                <!-- /Body -->
+
+              </article>
+              <!-- /Panel -->
+
+              <article class="panel panel-success panel-outline">
+
+                <!-- Icon -->
+                <div class="panel-heading icon">
+                  <i class="glyphicon glyphicon-ok"></i>
+                </div>
+                <!-- /Icon -->
+
+                <!-- Body -->
+                <div class="panel-body">
+                  <strong>Denitsa</strong> approved voucher and sent it to next level at 21 Jun 2017 13:45:00.
+                </div>
+                <!-- /Body -->
+
+              </article>
+
+              <!-- Panel -->
+              <article class="panel panel-danger panel-primary">
+
+                <!-- Icon -->
+                <div class="panel-heading icon">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </div>
+                <!-- /Icon -->
+
+                <!-- Heading -->
+                <div class="panel-heading">
+                  <h2 class="panel-title"><strong>Paul</strong> rejected invoice at 21 Jun 2017 13:50:00 </h2>
+                </div>
+                <!-- /Heading -->
+
+                <!-- Body -->
+                <div class="panel-body">
+                  <strong>Comment</strong> : Voucher exceeds allocated amount
+                </div>
+                <!-- /Body -->
+
+                <!-- Footer -->
+                <div class="panel-footer">
+                  <small>Moved to rejected status</small>
+                </div>
+                <!-- /Footer -->
+
+              </article>
+              
+
+            </div>
+            <!-- /Timeline -->
+          </div>
+          <div class="chart-notes">
+            Track the document realtime.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+  </div>  
+  <script type="text/javascript" src="dashboard.js"></script>
+</body>
+</html>
