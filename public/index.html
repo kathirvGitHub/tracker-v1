@@ -3,9 +3,11 @@
 
 <head>
   <title>Tracker - v1</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />  
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  
   <link rel="stylesheet" type="text/css" href="./lib/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="./css/keen-dashboards.css" />
+  
 
   <style type="text/css">
     @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900|Oswald);
@@ -140,7 +142,21 @@
   </div>
 
   <div class="container-fluid">
-    <!-- <button>Add to timeline</button> -->
+    <form id="timeline-form">
+      <input name="timeline-personResp" type="text" size="15" placeholder="Person" autofocus />
+      <input name="timeline-taskDone" type="text" size="150" placeholder="Task Done"  />
+      <input name="timeline-responseKey" type="text" size="25" placeholder="Response Key"  />
+      <input name="timeline-responseMessage" type="text" size="150" placeholder="Response message" />
+      <input name="timeline-panelType" type="text" size="150" placeholder="Panel Type"  />
+      <input name="timeline-panelMode" type="text" size="150" placeholder="Panel Mode"  />
+      <input name="timeline-iconType" type="text" size="150" placeholder="Icon Type"  />
+      <input name="timeline-divID" type="text" size="150" placeholder="Div ID"  />
+      <button>Add</button>      
+    </form>
+    <form id="timeline-updateForm">
+      <input name="timeline-updateDivID" type="text" size="50" placeholder="ID to update"  />
+      <button>Update</button>
+    </form>    
     <div class="row">
 
       <div class="col-sm-12">
@@ -149,7 +165,7 @@
             Tracker.
           </div>
           <div class="chart-stage">
-            <div class="timeline">
+            <div class="timeline" id = "timelineID">
 
               <!-- Line component -->
               <div class="line text-muted"></div>
@@ -242,7 +258,7 @@
                 <!-- /Footer -->
 
               </article>
-              
+
 
             </div>
             <!-- /Timeline -->
@@ -255,7 +271,27 @@
     </div>
 
     <hr>
-  </div>  
-  <script type="text/javascript" src="dashboard.js"></script>
+  </div>
+
+  <script src = "./lib/jquery/dist/jquery.min.js"> </script>
+  <script src = "./lib/mustache.js"> </script>
+  <script id="timeline-template" type="text/template">
+    
+    <article class="panel {{ panelType }} {{ panelMode }}"  id = "{{ divID }}">
+        <div class="panel-heading icon">
+            <i class="glyphicon {{ iconType }} "></i>
+        </div>
+        <div class="panel-heading">
+            <h2 class="panel-title"><strong>{{ personResp }}</strong> {{ taskDone }}</h2>
+        </div>
+        <div class="panel-body">
+            <strong> {{ responseKey }} </strong> {{ responseMessage }}
+        </div>
+    </article>
+  </script>
+  
+  <script type="text/javascript" src="tracker.js"></script>
+  
 </body>
+
 </html>
