@@ -8,6 +8,9 @@ const { isRealString } = require('./utils/validation')
 
 const publicPath = path.join(__dirname, '../public');
 
+const { User } = require('./models/user');
+var { mongoose } = require('./db/mongoose');
+
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -18,7 +21,17 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
+var jdeUser;
+
+User.find().then((users) => {
+    jdeUser = users;
+}, (e) => {
+    console.log(e);
+});
+
+
 io.on('connection', (socket) => {
+    console.log('JDE user info to be user', jdeUser);    
     console.log('client connected with ID:', socket.id);
 
     socket.on('findTrack', (params, callback) => {
@@ -116,7 +129,7 @@ io.on('connection', (socket) => {
             iconType: "glyphicon-ok",
             divID: "2"
         }];
-        socket.emit('createTrack', trackCreationData);      
+        socket.emit('createTrack', trackCreationData);
 
         callback();
     });
@@ -133,7 +146,7 @@ io.on('connection', (socket) => {
             divID: "2"
         };
 
-        socket.emit('updateTrackDetail', trackDetail);    
+        socket.emit('updateTrackDetail', trackDetail);
     });
 
     // socket.on('getAvailabilityData', () => {
