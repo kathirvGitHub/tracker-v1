@@ -168,7 +168,7 @@
 
             <!-- /Timeline -->
             <div class="timeline" id="timelineID">
-              
+
             </div>
           </div>
           <div class="chart-notes">
@@ -188,16 +188,18 @@
 
   </script>
   <script id="timeline-template" type="text/template">
-
     <article class="panel {{ panelType }} {{ panelMode }}" id="{{ divID }}">
       <div class="panel-heading icon">
         <i class="glyphicon {{ iconType }} "></i>
       </div>
       <div class="panel-heading">
-        <h2 class="panel-title"><strong>{{ personResp }}</strong> {{ taskDone }}</h2>
+        <h2 class="panel-title"><strong>{{ headingStrong }}</strong> {{ headingContent }}</h2>
       </div>
       <div class="panel-body">
-        <strong> {{ responseKey }} </strong> {{ responseMessage }}
+        <strong> {{ bodyStrong }} </strong> {{ bodyContent }}
+      </div>
+      <div class="panel-footer">
+        <small><strong> {{ footerStrong }}</strong> {{footerContent}} </small>
       </div>
     </article>
   </script>
@@ -208,13 +210,15 @@
     </div>
   </script>
   <script id="loadingTrackID-template" type="text/template">
-     <div id="{{ divID }}">
+    <div id="{{ divID }}">
       <h2>Please wait, as we load the tracks...</h2>
       <image src="./img/layingtracks.gif">
     </div>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-  <script src = "./lib/deparam.js"> </script>
+  <script src="./lib/deparam.js">
+
+  </script>
   <script type="text/javascript" src="tracker.js"></script>
 
 </body>

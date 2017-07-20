@@ -1,141 +1,5 @@
 var socket = io();
 
-var addButton = jQuery('#addToTimeLine');
-
-addButton.on('click', function () {
-    var personResptxt = jQuery('[name=timeline-personResp]');
-    var taskDonetxt = jQuery('[name=timeline-taskDone]');
-    var responseKeytxt = jQuery('[name=timeline-responseKey]');
-    var responseMessagetxt = jQuery('[name=timeline-responseMessage]');
-    var panelTypetxt = jQuery('[name=timeline-panelType]');
-    var panelModetxt = jQuery('[name=timeline-panelMode]');
-    var iconTypetxt = jQuery('[name=timeline-iconType]');
-    var divIDtxt = jQuery('[name=timeline-divID]');
-
-    var template = jQuery('#timeline-template').html();
-    var html = Mustache.render(template, {
-        personResp: personResptxt.val(),
-        taskDone: taskDonetxt.val(),
-        responseKey: responseKeytxt.val(),
-        responseMessage: responseMessagetxt.val(),
-        panelType: panelTypetxt.val(),
-        panelMode: panelModetxt.val(),
-        iconType: iconTypetxt.val(),
-        divID: divIDtxt.val()
-    });
-
-    console.log('Formed message', html);
-
-    var timelineHtml = jQuery('#timelineID');
-
-    // console.log('Current timeline ', timelineHtml.html());
-
-    timelineHtml.append(html);
-})
-
-var updateButton = jQuery('#updateTimeLine');
-
-updateButton.on('click', function () {
-    var divIDtxt = jQuery('[name=timeline-updateDivID]');
-    var personResptxt = jQuery('[name=timeline-personResp]');
-    var taskDonetxt = jQuery('[name=timeline-taskDone]');
-    var responseKeytxt = jQuery('[name=timeline-responseKey]');
-    var responseMessagetxt = jQuery('[name=timeline-responseMessage]');
-    var panelTypetxt = jQuery('[name=timeline-panelType]');
-    var panelModetxt = jQuery('[name=timeline-panelMode]');
-    var iconTypetxt = jQuery('[name=timeline-iconType]');
-
-    // var template = jQuery('#' + divIDtxt.val()).html();
-    var template = jQuery('#timeline-template').html();
-    var html = Mustache.render(template, {
-        personResp: personResptxt.val(),
-        taskDone: taskDonetxt.val(),
-        responseKey: responseKeytxt.val(),
-        responseMessage: responseMessagetxt.val(),
-        panelType: panelTypetxt.val(),
-        panelMode: panelModetxt.val(),
-        iconType: iconTypetxt.val(),
-        divID: divIDtxt.val()
-    });
-
-    console.log('Div ID will be updated to', html);
-
-    var timelineHtml = jQuery('#' + divIDtxt.val());
-
-    // // console.log('Current timeline ', timelineHtml.html());
-
-    timelineHtml.replaceWith(html);
-})
-
-jQuery('#timeline-form').on('submit', function (e) {
-    e.preventDefault();
-
-    var personResptxt = jQuery('[name=timeline-personResp]');
-    var taskDonetxt = jQuery('[name=timeline-taskDone]');
-    var responseKeytxt = jQuery('[name=timeline-responseKey]');
-    var responseMessagetxt = jQuery('[name=timeline-responseMessage]');
-    var panelTypetxt = jQuery('[name=timeline-panelType]');
-    var panelModetxt = jQuery('[name=timeline-panelMode]');
-    var iconTypetxt = jQuery('[name=timeline-iconType]');
-    var divIDtxt = jQuery('[name=timeline-divID]');
-
-    var template = jQuery('#timeline-template').html();
-    var html = Mustache.render(template, {
-        personResp: personResptxt.val(),
-        taskDone: taskDonetxt.val(),
-        responseKey: responseKeytxt.val(),
-        responseMessage: responseMessagetxt.val(),
-        panelType: panelTypetxt.val(),
-        panelMode: panelModetxt.val(),
-        iconType: iconTypetxt.val(),
-        divID: divIDtxt.val()
-    });
-
-    console.log('Formed message', html);
-
-    var timelineHtml = jQuery('#timelineID');
-
-    // console.log('Current timeline ', timelineHtml.html());
-
-    timelineHtml.append(html);
-
-})
-
-jQuery('#timeline-updateForm').on('submit', function (e) {
-    e.preventDefault();
-
-    var divIDtxt = jQuery('[name=timeline-updateDivID]');
-    var personResptxt = jQuery('[name=timeline-personResp]');
-    var taskDonetxt = jQuery('[name=timeline-taskDone]');
-    var responseKeytxt = jQuery('[name=timeline-responseKey]');
-    var responseMessagetxt = jQuery('[name=timeline-responseMessage]');
-    var panelTypetxt = jQuery('[name=timeline-panelType]');
-    var panelModetxt = jQuery('[name=timeline-panelMode]');
-    var iconTypetxt = jQuery('[name=timeline-iconType]');
-
-    // var template = jQuery('#' + divIDtxt.val()).html();
-    var template = jQuery('#timeline-template').html();
-    var html = Mustache.render(template, {
-        personResp: personResptxt.val(),
-        taskDone: taskDonetxt.val(),
-        responseKey: responseKeytxt.val(),
-        responseMessage: responseMessagetxt.val(),
-        panelType: panelTypetxt.val(),
-        panelMode: panelModetxt.val(),
-        iconType: iconTypetxt.val(),
-        divID: divIDtxt.val()
-    });
-
-    console.log('Div ID will be updated to', template);
-
-    var timelineHtml = jQuery('#' + divIDtxt.val());
-
-    // // console.log('Current timeline ', timelineHtml.html());
-
-    timelineHtml.replaceWith(html);
-
-})
-
 socket.on('connect', function () {
     console.log('Connected to server');
 
@@ -164,14 +28,6 @@ socket.on('connect', function () {
         }
     });
 
-    // socket.emit('join', params, function(err) {
-    //     if(err){
-    //         alert(err);
-    //         window.location.href = '/';
-    //     }else{
-    //         console.log('No Error');
-    //     }
-    // })
 });
 
 socket.on('createTrack', function (trackInfo) {
@@ -184,10 +40,12 @@ socket.on('createTrack', function (trackInfo) {
     trackInfo.forEach(function (trackDetail) {
         var template = jQuery('#timeline-template').html();
         var html = Mustache.render(template, {
-            personResp: trackDetail.personResp,
-            taskDone: trackDetail.taskDone,
-            responseKey: trackDetail.responseKey,
-            responseMessage: trackDetail.responseMessage,
+            headingStrong: trackDetail.headingStrong,
+            headingContent: trackDetail.headingContent,
+            bodyStrong: trackDetail.bodyStrong,
+            bodyContent: trackDetail.bodyContent,
+            footerStrong: trackDetail.footerStrong,
+            footerContent: trackDetail.footerContent,
             panelType: trackDetail.panelType,
             panelMode: trackDetail.panelMode,
             iconType: trackDetail.iconType,
@@ -220,7 +78,35 @@ socket.on('updateTrackDetail', function (trackDetail) {
     timelineHtml.replaceWith(html);
 });
 
+socket.on('criticalError', function (err) {
+    alert(err);
+    window.location.href = 'http://www.forzaconsulting.eu/en/';
+});
+
+socket.on('invalidTrackID', function (err) {
+    var template = jQuery('#invalidTrackID-template').html();
+    var html = Mustache.render(template, {
+        divID: "initialTimeLineMessage"
+    });
+    // console.log('Div ID will be updated to', template);
+    timelineHtml = jQuery('#initialTimeLineMessage');
+    // console.log(timelineHtml.html());
+    timelineHtml.replaceWith(template);
+});
+
 socket.on('disconnect', function () {
     console.log('Server disconnected');
 });
 
+socket.on('trackLastActivity', function (trackLastActivityInfo) {
+    // start timer to track the activity
+    timerFunction(trackLastActivityInfo);
+});
+
+function timerFunction(trackLastActivityInfo) {
+    var params = jQuery.deparam(window.location.search);
+    setInterval(function () {
+        console.log("Calling socket.emit with info", params, trackLastActivityInfo);
+        socket.emit('getTimeLineUpdates', params, trackLastActivityInfo);
+    }, 3000);
+}
