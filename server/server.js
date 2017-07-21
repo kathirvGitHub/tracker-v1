@@ -6,7 +6,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const socketIO = require('socket.io');
 const { isRealString } = require('./utils/validation')
-const { getJDETimeLineInfo } = require ('./JDE/jde.js')
+const { getJDETimeLineInfo, getJDETimeLineUpdates } = require ('./JDE/jde.js')
 
 const JDEServerURL = 'http://aisdv910.forza-solutions.com:9082';
 // const JDEServerURL = 'http://172.19.2.24:9082';
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
             socket.emit('criticalError', 'User invalid. Please contact system administrator!');
         }
 
-        getJDETimeLineInfo(socket, params, jdeUser);
+        getJDETimeLineInfo(socket, params, jdeUser, false);
 
         // var trackCreationData = [{
         //     personResp: "Jan",
@@ -93,6 +93,9 @@ io.on('connection', (socket) => {
     });
 
     socket.on('getTimeLineUpdates', (params, trackLastActivityInfo) => {
+
+        getJDETimeLineUpdates(socket, params, jdeUser, trackLastActivityInfo);
+
     //     var trackDetail = {
     //         personResp: "Karthik",
     //         taskDone: "created Task 123",

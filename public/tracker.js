@@ -1,4 +1,5 @@
 var socket = io();
+var lastActivityInfo = null;
 
 socket.on('connect', function () {
     console.log('Connected to server');
@@ -61,10 +62,12 @@ socket.on('createTrack', function (trackInfo) {
 socket.on('updateTrackDetail', function (trackDetail) {
     var template = jQuery('#timeline-template').html();
     var html = Mustache.render(template, {
-        personResp: trackDetail.personResp,
-        taskDone: trackDetail.taskDone,
-        responseKey: trackDetail.responseKey,
-        responseMessage: trackDetail.responseMessage,
+        headingStrong: trackDetail.headingStrong,
+        headingContent: trackDetail.headingContent,
+        bodyStrong: trackDetail.bodyStrong,
+        bodyContent: trackDetail.bodyContent,
+        footerStrong: trackDetail.footerStrong,
+        footerContent: trackDetail.footerContent,
         panelType: trackDetail.panelType,
         panelMode: trackDetail.panelMode,
         iconType: trackDetail.iconType,
@@ -100,13 +103,19 @@ socket.on('disconnect', function () {
 
 socket.on('trackLastActivity', function (trackLastActivityInfo) {
     // start timer to track the activity
-    timerFunction(trackLastActivityInfo);
+    lastActivityInfo = trackLastActivityInfo;
+    timerFunction();
 });
 
-function timerFunction(trackLastActivityInfo) {
+socket.on('updateTrackLastActivity', function (trackLastActivityInfo) {
+    //update the activity info
+    lastActivityInfo = trackLastActivityInfo;
+});
+
+function timerFunction() {
     var params = jQuery.deparam(window.location.search);
     setInterval(function () {
-        console.log("Calling socket.emit with info", params, trackLastActivityInfo);
-        socket.emit('getTimeLineUpdates', params, trackLastActivityInfo);
-    }, 3000);
+        console.log("Calling socket.emit with info", params, lastActivityInfo);
+        socket.emit('getTimeLineUpdates', params, lastActivityInfo);
+    }, 7000);
 }
