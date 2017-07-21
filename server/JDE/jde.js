@@ -141,7 +141,7 @@ getJDETimeLineUpdates = (socket, params, jdeUser, trackLastActivityInfo) => {
                     "id": "1"
                 },
                 {
-                    "value": trackLastActivityInfo.lastActivityTime - 1,
+                    "value": trackLastActivityInfo.lastActivityTime,
                     "id": "5"
                 },
                 {
