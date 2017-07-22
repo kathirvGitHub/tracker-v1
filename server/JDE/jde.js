@@ -68,7 +68,8 @@ getJDETimeLineInfo = (socket, params, jdeUser, fromUpdateModule) => {
                     panelType: gridLine.sPanelTypeJSCode_41.value,
                     panelMode: gridLine.sPanelColourJSCode_40.value,
                     iconType: gridLine.sGraphicIconJSCode_42.value,
-                    divID: `${gridLine.sTrackerID_21.value}-${gridLine.mnPreviousSeq_22.internalValue}-${gridLine.mnNextSeq_23.internalValue}`
+                    divID: `${gridLine.sTrackerID_21.value}-${gridLine.mnPreviousSeq_22.internalValue}-${gridLine.mnNextSeq_23.internalValue}`,
+                    option1: gridLine.chOption1_43.internalValue
                 }
 
                 trackCreationData.push(timelineDetail);
@@ -193,7 +194,8 @@ getJDETimeLineUpdates = (socket, params, jdeUser, trackLastActivityInfo) => {
                         panelType: gridLine.sPanelTypeJSCode_41.value,
                         panelMode: gridLine.sPanelColourJSCode_40.value,
                         iconType: gridLine.sGraphicIconJSCode_42.value,
-                        divID: `${gridLine.sTrackerID_19.value}-${gridLine.mnPreviousSeq_22.internalValue}-${gridLine.mnNextSeq_23.internalValue}`
+                        divID: `${gridLine.sTrackerID_19.value}-${gridLine.mnPreviousSeq_22.internalValue}-${gridLine.mnNextSeq_23.internalValue}`,
+                        option1: gridLine.chOption1_48.internalValue
                     }
 
                     console.log("Timeline detail to be updated", timelineDetail);

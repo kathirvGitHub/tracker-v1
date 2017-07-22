@@ -51,43 +51,7 @@ socket.on('createTrack', function (trackInfo) {
         // console.log('Current timeline ', timelineHtml.html());
         timelineHtml.append(html);
 
-        var timelinedetailHtml = jQuery('#' + trackDetail.divID);
-
-        if ((!trackDetail.headingStrong || /^\s*$/.test(trackDetail.headingStrong))
-            && (!trackDetail.headingContent || /^\s*$/.test(trackDetail.headingContent))) {
-            // blank heading and content
-        } else {
-            var headingtemplate = jQuery('#timeline-heading-template').html();
-            var headingHtml = Mustache.render(headingtemplate, {
-                headingStrong: trackDetail.headingStrong,
-                headingContent: trackDetail.headingContent
-            });
-            timelinedetailHtml.append(headingHtml);
-        }
-
-        if ((!trackDetail.bodyStrong || /^\s*$/.test(trackDetail.bodyStrong))
-            && (!trackDetail.bodyContent || /^\s*$/.test(trackDetail.bodyContent))) {
-            // blank body and content
-        } else {
-            var bodytemplate = jQuery('#timeline-body-template').html();
-            var bodyHtml = Mustache.render(bodytemplate, {
-                bodyStrong: trackDetail.bodyStrong,
-                bodyContent: trackDetail.bodyContent
-            });
-            timelinedetailHtml.append(bodyHtml);
-        }
-
-        if ((!trackDetail.footerStrong || /^\s*$/.test(trackDetail.footerStrong))
-            && (!trackDetail.footerContent || /^\s*$/.test(trackDetail.footerContent))) {
-            // blank body and content
-        } else {
-            var footertemplate = jQuery('#timeline-footer-template').html();
-            var footerHtml = Mustache.render(footertemplate, {
-                footerStrong: trackDetail.footerStrong,
-                footerContent: trackDetail.footerContent
-            });
-            timelinedetailHtml.append(footerHtml);
-        }
+        jqueryTimeline(trackDetail);
 
     });
 });
@@ -95,12 +59,6 @@ socket.on('createTrack', function (trackInfo) {
 socket.on('updateTrackDetail', function (trackDetail) {
     var template = jQuery('#timeline-template').html();
     var html = Mustache.render(template, {
-        headingStrong: trackDetail.headingStrong,
-        headingContent: trackDetail.headingContent,
-        bodyStrong: trackDetail.bodyStrong,
-        bodyContent: trackDetail.bodyContent,
-        footerStrong: trackDetail.footerStrong,
-        footerContent: trackDetail.footerContent,
         panelType: trackDetail.panelType,
         panelMode: trackDetail.panelMode,
         iconType: trackDetail.iconType,
@@ -112,6 +70,9 @@ socket.on('updateTrackDetail', function (trackDetail) {
     // // console.log('Current timeline ', timelineHtml.html());
 
     timelineHtml.replaceWith(html);
+
+    jqueryTimeline(trackDetail);
+
 });
 
 socket.on('criticalError', function (err) {
@@ -151,4 +112,52 @@ function timerFunction() {
         console.log("Calling socket.emit with info", params, lastActivityInfo);
         socket.emit('getTimeLineUpdates', params, lastActivityInfo);
     }, 7000);
+}
+
+function jqueryTimeline(trackDetail) {
+    var timelinedetailHtml = jQuery('#' + trackDetail.divID);
+
+    if ((!trackDetail.headingStrong || /^\s*$/.test(trackDetail.headingStrong))
+        && (!trackDetail.headingContent || /^\s*$/.test(trackDetail.headingContent))) {
+        // blank heading and content
+    } else {
+        var headingtemplate = jQuery('#timeline-heading-template').html();
+        var headingHtml = Mustache.render(headingtemplate, {
+            headingStrong: trackDetail.headingStrong,
+            headingContent: trackDetail.headingContent
+        });
+        timelinedetailHtml.append(headingHtml);
+    }
+
+    if ((!trackDetail.bodyStrong || /^\s*$/.test(trackDetail.bodyStrong))
+        && (!trackDetail.bodyContent || /^\s*$/.test(trackDetail.bodyContent))) {
+        // blank body and content
+    } else {
+        if (trackDetail.option1 === "1") {
+            var bodytemplate = jQuery('#timeline-body-iframe-template').html();
+            var bodyHtml = Mustache.render(bodytemplate, {
+                trackIDLink: trackDetail.bodyStrong
+            });
+            timelinedetailHtml.append(bodyHtml);
+        } else {
+            var bodytemplate = jQuery('#timeline-body-template').html();
+            var bodyHtml = Mustache.render(bodytemplate, {
+                bodyStrong: trackDetail.bodyStrong,
+                bodyContent: trackDetail.bodyContent
+            });
+            timelinedetailHtml.append(bodyHtml);
+        }
+    }
+
+    if ((!trackDetail.footerStrong || /^\s*$/.test(trackDetail.footerStrong))
+        && (!trackDetail.footerContent || /^\s*$/.test(trackDetail.footerContent))) {
+        // blank body and content
+    } else {
+        var footertemplate = jQuery('#timeline-footer-template').html();
+        var footerHtml = Mustache.render(footertemplate, {
+            footerStrong: trackDetail.footerStrong,
+            footerContent: trackDetail.footerContent
+        });
+        timelinedetailHtml.append(footerHtml);
+    }
 }

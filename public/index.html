@@ -204,6 +204,11 @@
       <strong> {{ bodyStrong }} </strong> {{ bodyContent }}
     </div>
   </script>
+  <script id="timeline-body-iframe-template" type="text/template">
+    <div class="panel-body">
+      <iframe src="/?trackID={{trackIDLink}}" width="100%" scrolling="no" frameborder="0"></iframe>
+    </div>
+  </script>
   <script id="timeline-footer-template" type="text/template">
     <div class="panel-footer">
       <small><strong> {{ footerStrong }}</strong> {{footerContent}} </small>
@@ -222,12 +227,39 @@
     </div>
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-  <script src="./lib/deparam.js">
-
-  </script>
+  <script src="./lib/deparam.js"></script>
   <script type="text/javascript" src="tracker.js"></script>
-  <script type="text/javascript" src="./js/iframe.js"></script>
+  <script type='text/javascript'>
+    var iFrames = $('iframe');
+    function iResize() {
 
+      iFrames = $('iframe');
+
+      for (var i = 0, j = iFrames.length; i < j; i++) {
+        iFrames[i].style.height = iFrames[i].contentWindow.document.body.offsetHeight + 'px';
+      }
+    }
+
+    if ($.support.safari || $.support.opera) {
+
+      iFrames.load(function () {
+        setTimeout(iResize, 0);
+      });
+
+      for (var i = 0, j = iFrames.length; i < j; i++) {
+        var iSource = iFrames[i].src;
+        iFrames[i].src = '';
+        iFrames[i].src = iSource;
+      }
+
+    } else {
+      iFrames.load(function () {
+        this.style.height = this.contentWindow.document.body.offsetHeight + 'px';
+      });
+    }
+
+    setInterval(iResize, 1000);
+  </script>
 </body>
 
 </html>
