@@ -53,8 +53,9 @@ io.on('connection', (socket) => {
             return callback('Empty Track ID!');
         }
 
-        if (!jdeUser || !isRealString(jdeUser.jdeUsername) || !isRealString(jdeUser.jdePassword)) {
+        if (undefined == jdeUser || !isRealString(jdeUser.jdeUsername) || !isRealString(jdeUser.jdePassword)) {
             socket.emit('criticalError', 'User invalid. Please contact system administrator!');
+            return callback();
         }
 
         getJDETimeLineInfo(socket, params, jdeUser, false);
@@ -93,6 +94,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('getTimeLineUpdates', (params, trackLastActivityInfo) => {
+
+        if (undefined == jdeUser || !isRealString(jdeUser.jdeUsername) || !isRealString(jdeUser.jdePassword)) {
+            socket.emit('criticalError', 'User invalid. Please contact system administrator!');
+            return;
+        }
 
         getJDETimeLineUpdates(socket, params, jdeUser, trackLastActivityInfo);
 

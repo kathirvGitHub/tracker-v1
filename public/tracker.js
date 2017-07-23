@@ -160,4 +160,6 @@ function jqueryTimeline(trackDetail) {
         });
         timelinedetailHtml.append(footerHtml);
     }
+    
+    $("html, body").animate({ scrollTop: ($("#" + trackDetail.divID).offset().top - 50 )+ 'px' }, 500);
 }
