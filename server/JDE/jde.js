@@ -204,7 +204,7 @@ getJDETimeLineUpdates = (socket, params, jdeUser, trackLastActivityInfo) => {
                     // update the last activity info
 
                     var trackLastActivityInfoNew = {
-                        lastActivityDateJulian: trackLastActivityInfo.lastActivityDateJulian,
+                        lastActivityDateJulian: gridLine.sDateUpdatedJulian_53.internalValue,
                         lastActivityTime: gridLine.mnTimeUpdated_52.internalValue
                     }
 
